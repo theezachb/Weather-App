@@ -5,8 +5,16 @@ let weather = {
             + city + "&units=imperial&appid=" 
             + this.apiKey
             )
-            .then((response) => response.json())
-            .then((data) => this.displayWeather(data));
+            // .then((response) => response.json())
+            // .then((data) => this.displayWeather(data));
+            .then((response) => {
+                if (!response.ok) {
+                  alert("No weather found.");
+                  throw new Error("No weather found.");
+                }
+                return response.json();
+              })
+              .then((data) => this.displayWeather(data));
     },
 
     displayWeather: function(data) {
